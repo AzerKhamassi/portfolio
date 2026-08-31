@@ -81,6 +81,7 @@ export default function ContactForm({
         </label>
         <input
           id="name"
+          autoComplete="name"
           className={`${inputClasses} mt-2`}
           placeholder={dict.contact.namePlaceholder}
           {...register("name")}
@@ -97,6 +98,7 @@ export default function ContactForm({
         <input
           id="email"
           type="email"
+          autoComplete="email"
           className={`${inputClasses} mt-2`}
           placeholder={dict.contact.emailPlaceholder}
           {...register("email")}
