@@ -41,16 +41,24 @@ export async function POST(request: Request) {
     );
   }
 
-  const { error } = await getResend().emails.send({
-    from: fromAddress,
-    to: contactInbox,
-    replyTo: email,
-    subject: dict.email.subject.replace("{name}", name),
-    react: ContactEmail({ name, email, message, locale }),
-  });
+  try {
+    const { error } = await getResend().emails.send({
+      from: fromAddress,
+      to: contactInbox,
+      replyTo: email,
+      subject: dict.email.subject.replace("{name}", name),
+      react: ContactEmail({ name, email, message, locale }),
+    });
 
-  if (error) {
-    console.error("Resend error:", error);
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json(
+        { error: dict.contact.errors.sendFailed },
+        { status: 502 },
+      );
+    }
+  } catch (err) {
+    console.error("Resend threw:", err);
     return NextResponse.json(
       { error: dict.contact.errors.sendFailed },
       { status: 502 },
