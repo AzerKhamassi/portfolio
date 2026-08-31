@@ -49,7 +49,7 @@ export default function ContactForm({
       }
 
       setStatus("success");
-      reset({ locale });
+      reset({ locale, name: "", email: "", message: "", company: "" });
     } catch (err) {
       setStatus("error");
       setServerError(
@@ -62,7 +62,12 @@ export default function ContactForm({
     "w-full border-2 border-line bg-paper px-3 py-2 text-sm outline-none placeholder:text-ink-soft/60 focus:translate-x-0.5 focus:-translate-y-0.5 focus:shadow-[3px_3px_0_0_var(--line)] transition-transform";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-6 flex flex-col gap-4">
+    <form
+      method="post"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="mt-6 flex flex-col gap-4"
+    >
       <input type="hidden" {...register("locale")} />
 
       {/* honeypot field, hidden from real users */}
