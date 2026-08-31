@@ -1,26 +1,211 @@
 @import "tailwindcss";
 
+/* Registering these as typed <color> properties lets the browser
+   smoothly interpolate them, so every bg/text/border that reads
+   var(--paper) etc. fades together when the theme toggles. */
+@property --paper {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f2ead9;
+}
+@property --ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2b2620;
+}
+@property --ink-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #5c5346;
+}
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #c0392b;
+}
+@property --accent-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #b8860b;
+}
+@property --line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2b2620;
+}
+@property --card {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e9dfc7;
+}
+@property --success {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #3f6b35;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f2ead9;
+  --ink: #2b2620;
+  --ink-soft: #5c5346;
+  --accent: #c0392b;
+  --accent-soft: #b8860b;
+  --line: #2b2620;
+  --card: #e9dfc7;
+  --success: #3f6b35;
+  transition:
+    --paper 0.35s ease,
+    --ink 0.35s ease,
+    --ink-soft 0.35s ease,
+    --accent 0.35s ease,
+    --accent-soft 0.35s ease,
+    --line 0.35s ease,
+    --card 0.35s ease,
+    --success 0.35s ease;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-success: var(--success);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --paper: #100f0c;
+    --ink: #e7dfc9;
+    --ink-soft: #9a9280;
+    --accent: #e0574a;
+    --accent-soft: #d8a942;
+    --line: #e7dfc9;
+    --card: #1a1812;
+    --success: #7fbf6a;
   }
 }
 
+:root[data-theme="dark"] {
+  --paper: #100f0c;
+  --ink: #e7dfc9;
+  --ink-soft: #9a9280;
+  --accent: #e0574a;
+  --accent-soft: #d8a942;
+  --line: #e7dfc9;
+  --card: #1a1812;
+  --success: #7fbf6a;
+}
+
+* {
+  border-color: var(--line);
+}
+
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+summary,
+label[for] {
+  cursor: pointer;
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"],
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled {
+  cursor: not-allowed;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-soft) var(--paper);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgb(0 0 0 / 2%) 0px,
+      rgb(0 0 0 / 2%) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--paper);
+}
+
+.crt-flicker {
+  animation: flicker 6s infinite;
+}
+
+@keyframes flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.94; }
+  98% { opacity: 1; }
+}
+
+.blink-cursor::after {
+  content: "_";
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.retro-shadow {
+  box-shadow: 4px 4px 0 0 var(--line);
+}
+
+.retro-shadow-sm {
+  box-shadow: 3px 3px 0 0 var(--line);
+}
+
+/* Circular reveal for the theme toggle, driven by the View Transitions API.
+   --theme-toggle-x/y/radius are set from the button's position in JS. */
+@keyframes reveal-theme {
+  from {
+    clip-path: circle(0px at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%));
+  }
+  to {
+    clip-path: circle(
+      var(--theme-toggle-radius, 150%) at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%)
+    );
+  }
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: reveal-theme 0.45s cubic-bezier(0.4, 0, 1, 1);
+  will-change: clip-path;
+}
+
+/* Touch devices tend to have less GPU headroom for a large clip-path
+   animation, so give the reveal less time to run there. */
+@media (pointer: coarse) {
+  ::view-transition-new(root) {
+    animation-duration: 0.3s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
