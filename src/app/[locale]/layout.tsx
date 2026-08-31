@@ -11,7 +11,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
 });
 
-const siteUrl = "https://azerkhamassi.dev";
+const siteUrl = "https://azerxkhamassi.netlify.app";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
