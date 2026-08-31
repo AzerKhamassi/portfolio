@@ -12,7 +12,8 @@ export type Dictionary = {
   };
   hero: {
     eyebrow: string;
-    tagline: string;
+    role: string;
+    stack: string;
     location: string;
     description: string;
     ctaContact: string;

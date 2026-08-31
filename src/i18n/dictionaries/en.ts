@@ -26,7 +26,8 @@ const en: Dictionary = {
   },
   hero: {
     eyebrow: "// hello, world",
-    tagline: "Full Stack Engineer · React, Node.js, TypeScript",
+    role: "Full Stack Engineer",
+    stack: "React, Node.js, TypeScript",
     location: "Sousse, Tunisia",
     description:
       "5+ years building responsive, scalable web applications end to end. I build REST APIs and relational data models on the backend, then ship component-based interfaces with a focus on UI performance optimization. I work remotely with international teams, mentor junior developers, and keep code clean and maintainable.",

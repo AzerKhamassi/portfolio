@@ -19,6 +19,7 @@ export default function LanguageSwitcher({
           ) : (
             <Link
               href={`/${loc}`}
+              scroll={false}
               className="text-ink-soft transition-colors hover:text-accent"
             >
               {labels[loc]}

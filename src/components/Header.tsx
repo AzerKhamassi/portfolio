@@ -1,6 +1,6 @@
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import MobileNav from "@/components/MobileNav";
+import MobileNavTrigger from "@/components/MobileNavTrigger";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
 import { getThemeCookie } from "@/lib/theme-cookie";
@@ -36,7 +36,7 @@ export default async function Header({
           </nav>
           <LanguageSwitcher locale={locale} />
           <ThemeToggle initialTheme={theme} dict={dict} />
-          <MobileNav links={links} />
+          <MobileNavTrigger />
         </div>
       </div>
     </header>

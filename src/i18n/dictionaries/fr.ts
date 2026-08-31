@@ -26,12 +26,13 @@ const fr: Dictionary = {
   },
   hero: {
     eyebrow: "// bonjour le monde",
-    tagline: "Développeur Full Stack · React, Node.js, TypeScript",
+    role: "Développeur Full Stack",
+    stack: "React, Node.js, TypeScript",
     location: "Sousse, Tunisie",
     description:
       "5+ ans à concevoir des applications web réactives et évolutives, de bout en bout. Je construis des API REST et des modèles de données relationnelles côté backend, puis je développe des interfaces à base de composants avec un souci constant de l'optimisation des performances UI. Je travaille à distance avec des équipes internationales, j'encadre des développeurs juniors, et je garde un code propre et maintenable.",
-    ctaContact: "me contacter →",
-    ctaWork: "voir mes projets",
+    ctaContact: "contacter →",
+    ctaWork: "projets",
   },
   projects: {
     sectionLabel: "01 / projets",
