@@ -3,6 +3,7 @@ export type Dictionary = {
     title: string;
     description: string;
     keywords: string[];
+    jobTitle: string;
   };
   nav: {
     work: string;
@@ -12,6 +13,7 @@ export type Dictionary = {
   hero: {
     eyebrow: string;
     tagline: string;
+    location: string;
     description: string;
     ctaContact: string;
     ctaWork: string;
@@ -57,6 +59,10 @@ export type Dictionary = {
     email: string;
     github: string;
     linkedin: string;
+  };
+  theme: {
+    switchToLight: string;
+    switchToDark: string;
   };
   email: {
     subject: string;

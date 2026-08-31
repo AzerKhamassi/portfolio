@@ -5,6 +5,7 @@ const fr: Dictionary = {
     title: "Azer Khamassi | Développeur Full Stack",
     description:
       "Développeur Full Stack avec 5+ ans d'expérience sur des applications web réactives et évolutives avec React, Node.js et TypeScript. Spécialisé en architecture de composants et optimisation des performances UI.",
+    jobTitle: "Développeur Full Stack",
     keywords: [
       "Azer Khamassi",
       "Développeur Full Stack",
@@ -25,7 +26,8 @@ const fr: Dictionary = {
   },
   hero: {
     eyebrow: "// bonjour le monde",
-    tagline: "Développeur Full Stack · React, Node.js, TypeScript · Sousse, Tunisie",
+    tagline: "Développeur Full Stack · React, Node.js, TypeScript",
+    location: "Sousse, Tunisie",
     description:
       "5+ ans à concevoir des applications web réactives et évolutives, de bout en bout. Je construis des API REST et des modèles de données relationnelles côté backend, puis je développe des interfaces à base de composants avec un souci constant de l'optimisation des performances UI. Je travaille à distance avec des équipes internationales, j'encadre des développeurs juniors, et je garde un code propre et maintenable.",
     ctaContact: "me contacter →",
@@ -40,7 +42,7 @@ const fr: Dictionary = {
         description:
           "Plateforme SaaS B2B qui unifie les analytics Instagram, TikTok et YouTube dans un tableau de bord unique pour les agences de talents. Elle automatise le suivi des performances et transforme des données éparses en media kits prêts à présenter.",
         tags: ["React", "Vite", "Node.js", "Express", "TypeScript", "PostgreSQL", "Stripe"],
-        href: "https://github.com/AzerKhamassi",
+        href: "https://www.icondesk.co",
       },
       {
         title: "The Platform TV",
@@ -48,7 +50,7 @@ const fr: Dictionary = {
         description:
           "Plateforme de streaming vidéo qui permet aux créateurs et aux entreprises de lancer des services d'abonnement à leur propre marque, combinant VOD, streaming en direct et paiements intégrés.",
         tags: ["React", "Node.js", "Express", "TypeScript", "PostgreSQL", "Agora SDK", "MyFatoorah"],
-        href: "https://github.com/AzerKhamassi",
+        href: "https://www.theplatform-tv.com",
       },
     ],
   },
@@ -100,6 +102,10 @@ const fr: Dictionary = {
     email: "email",
     github: "github",
     linkedin: "linkedin",
+  },
+  theme: {
+    switchToLight: "Passer en mode clair",
+    switchToDark: "Passer en mode sombre",
   },
   email: {
     subject: "Nouveau message de {name}",

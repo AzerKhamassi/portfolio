@@ -3,6 +3,7 @@
 import { useRef, useState, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import type { Theme } from "@/lib/theme-cookie";
+import type { Dictionary } from "@/i18n/dictionary";
 
 function subscribeToSystemTheme(callback: () => void) {
   const mql = window.matchMedia("(prefers-color-scheme: dark)");
@@ -20,7 +21,8 @@ function useSystemTheme(): Theme {
 
 export default function ThemeToggle({
   initialTheme,
-}: Readonly<{ initialTheme: Theme | null }>) {
+  dict,
+}: Readonly<{ initialTheme: Theme | null; dict: Dictionary }>) {
   const [explicitTheme, setExplicitTheme] = useState<Theme | null>(initialTheme);
   const systemTheme = useSystemTheme();
   const theme = explicitTheme ?? systemTheme;
@@ -66,11 +68,14 @@ export default function ThemeToggle({
     }
   };
 
+  const label = theme === "dark" ? dict.theme.switchToLight : dict.theme.switchToDark;
+
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label="Toggle color theme"
+      aria-label={label}
+      title={label}
       className="border-2 border-line px-2 py-1 text-xs font-bold leading-none transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
       suppressHydrationWarning
     >

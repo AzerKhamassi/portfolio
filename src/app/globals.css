@@ -166,6 +166,38 @@ body {
   50%, 100% { opacity: 0; }
 }
 
+/* Typewriter loop for the hero eyebrow line. --tw-width is set inline
+   per string (in ch units), so the same keyframes work for any locale. */
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+  border-right: 2px solid var(--accent);
+  width: 0;
+  animation:
+    typewriter-loop 6s steps(20, end) infinite,
+    typewriter-caret 0.8s step-end infinite;
+}
+
+@keyframes typewriter-loop {
+  0%, 5% { width: 0; }
+  45%, 70% { width: var(--tw-width, 20ch); }
+  95%, 100% { width: 0; }
+}
+
+@keyframes typewriter-caret {
+  50% { border-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter {
+    width: var(--tw-width, auto);
+    border-right: none;
+    animation: none;
+  }
+}
+
 .retro-shadow {
   box-shadow: 4px 4px 0 0 var(--line);
 }

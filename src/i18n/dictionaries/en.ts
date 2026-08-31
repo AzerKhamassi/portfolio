@@ -5,6 +5,7 @@ const en: Dictionary = {
     title: "Azer Khamassi | Full Stack Engineer",
     description:
       "Full Stack Engineer with 5+ years building responsive, scalable web apps in React, Node.js & TypeScript. Specialized in component architecture and UI performance.",
+    jobTitle: "Full Stack Engineer",
     keywords: [
       "Azer Khamassi",
       "Full Stack Engineer",
@@ -25,7 +26,8 @@ const en: Dictionary = {
   },
   hero: {
     eyebrow: "// hello, world",
-    tagline: "Full Stack Engineer · React, Node.js, TypeScript · Sousse, Tunisia",
+    tagline: "Full Stack Engineer · React, Node.js, TypeScript",
+    location: "Sousse, Tunisia",
     description:
       "5+ years building responsive, scalable web applications end to end. I build REST APIs and relational data models on the backend, then ship component-based interfaces with a focus on UI performance optimization. I work remotely with international teams, mentor junior developers, and keep code clean and maintainable.",
     ctaContact: "say hello →",
@@ -40,7 +42,7 @@ const en: Dictionary = {
         description:
           "B2B SaaS platform unifying Instagram, TikTok, and YouTube analytics into one dashboard for talent agencies. It automates performance tracking and turns scattered social data into client-ready media kits.",
         tags: ["React", "Vite", "Node.js", "Express", "TypeScript", "PostgreSQL", "Stripe"],
-        href: "https://github.com/AzerKhamassi",
+        href: "https://www.icondesk.co",
       },
       {
         title: "The Platform TV",
@@ -48,7 +50,7 @@ const en: Dictionary = {
         description:
           "Video streaming platform that lets creators and businesses launch branded subscription services, combining on-demand video, live streaming, and integrated payments in one customizable experience.",
         tags: ["React", "Node.js", "Express", "TypeScript", "PostgreSQL", "Agora SDK", "MyFatoorah"],
-        href: "https://github.com/AzerKhamassi",
+        href: "https://www.theplatform-tv.com",
       },
     ],
   },
@@ -100,6 +102,10 @@ const en: Dictionary = {
     email: "email",
     github: "github",
     linkedin: "linkedin",
+  },
+  theme: {
+    switchToLight: "Switch to light mode",
+    switchToDark: "Switch to dark mode",
   },
   email: {
     subject: "New message from {name}",

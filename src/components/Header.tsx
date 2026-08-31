@@ -35,7 +35,7 @@ export default async function Header({
             ))}
           </nav>
           <LanguageSwitcher locale={locale} />
-          <ThemeToggle initialTheme={theme} />
+          <ThemeToggle initialTheme={theme} dict={dict} />
           <MobileNav links={links} />
         </div>
       </div>

@@ -3,13 +3,19 @@ import type { Dictionary } from "@/i18n/dictionary";
 export default function Hero({ dict }: Readonly<{ dict: Dictionary }>) {
   return (
     <section id="top" className="mx-auto max-w-3xl px-6 pt-16 pb-10">
-      <p className="text-sm text-accent">{dict.hero.eyebrow}</p>
-      <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
-        Azer Khamassi
-      </h1>
-      <p className="mt-1 text-sm text-ink-soft">
-        <span className="blink-cursor">{dict.hero.tagline}</span>
+      <p className="text-sm text-accent">
+        <span
+          className="typewriter"
+          style={{ "--tw-width": `${dict.hero.eyebrow.length}ch` } as React.CSSProperties}
+        >
+          {dict.hero.eyebrow}
+        </span>
       </p>
+      <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
+        Azer <span className="blink-cursor">Khamassi</span>
+      </h1>
+      <p className="mt-1 text-sm text-ink-soft">{dict.hero.tagline}</p>
+      <p className="text-sm text-ink-soft">{dict.hero.location}</p>
       <p className="mt-6 max-w-prose text-[15px] leading-relaxed text-ink-soft">
         {dict.hero.description}
       </p>
