@@ -20,6 +20,7 @@ export type Dictionary = {
     description: string;
     ctaContact: string;
     ctaWork: string;
+    ctaTerminal: string;
   };
   projects: {
     sectionLabel: string;
@@ -81,6 +82,7 @@ export type Dictionary = {
     email: string;
     github: string;
     linkedin: string;
+    backToTop: string;
   };
   theme: {
     switchToLight: string;
@@ -93,5 +95,41 @@ export type Dictionary = {
     fromLabel: string;
     messageLabel: string;
     footerNote: string;
+  };
+  terminal: {
+    prompt: string;
+    intro: string;
+    helpIntro: string;
+    whoami: string;
+    azer: string;
+    themeToggled: string;
+    themeLight: string;
+    themeDark: string;
+    navigating: string;
+    opening: string;
+    dateLabel: string;
+    pwd: string;
+    ls: string;
+    sudo: string;
+    unknownCommand: string;
+    commands: {
+      help: string;
+      whoami: string;
+      azer: string;
+      pwd: string;
+      ls: string;
+      about: string;
+      work: string;
+      experience: string;
+      education: string;
+      contact: string;
+      theme: string;
+      clear: string;
+      github: string;
+      linkedin: string;
+      email: string;
+      date: string;
+      sudo: string;
+    };
   };
 };

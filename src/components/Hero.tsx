@@ -1,6 +1,15 @@
+"use client";
+
 import type { Dictionary } from "@/i18n/dictionary";
+import { useTerminal } from "@/components/terminal-context";
 
 export default function Hero({ dict }: Readonly<{ dict: Dictionary }>) {
+  const { setOpen } = useTerminal();
+
+  const openTerminal = () => {
+    setOpen(true);
+  };
+
   return (
     <section id="top" className="mx-auto max-w-3xl px-6 pt-16 pb-10">
       <p className="text-sm text-accent">
@@ -12,7 +21,7 @@ export default function Hero({ dict }: Readonly<{ dict: Dictionary }>) {
         </span>
       </p>
       <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
-        Azer <span className="blink-cursor">Khamassi</span>
+        Azer Khamassi
       </h1>
       <p className="mt-1 text-sm text-ink-soft">{dict.hero.role}</p>
       <p className="text-sm text-ink-soft">{dict.hero.stack}</p>
@@ -33,6 +42,15 @@ export default function Hero({ dict }: Readonly<{ dict: Dictionary }>) {
         >
           {dict.hero.ctaWork}
         </a>
+        <button
+          type="button"
+          onClick={openTerminal}
+          aria-label={dict.hero.ctaTerminal}
+          className="retro-shadow-sm border-2 border-line px-4 py-2 font-bold transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
+        >
+          {">"}
+          <span className="blink-cursor" />
+        </button>
       </div>
     </section>
   );

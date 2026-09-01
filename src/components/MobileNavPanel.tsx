@@ -2,13 +2,17 @@
 
 import { useEffect } from "react";
 import { useMobileNav } from "@/components/mobile-nav-context";
+import { useActiveSection } from "@/lib/use-active-section";
 
 type NavLink = { href: string; label: string };
+
+const SECTION_IDS = ["work", "about", "experience", "education", "contact"];
 
 export default function MobileNavPanel({
   links,
 }: Readonly<{ links: NavLink[] }>) {
   const { open, setOpen } = useMobileNav();
+  const activeId = useActiveSection(SECTION_IDS);
 
   useEffect(() => {
     if (!open) return;
@@ -45,23 +49,28 @@ export default function MobileNavPanel({
       </div>
 
       <ul className="flex flex-1 flex-col items-start justify-center gap-8 px-8">
-        {links.map((link, index) => (
-          <li
-            key={link.href}
-            className={`w-full transition-all duration-500 ease-out ${
-              open ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
-            }`}
-            style={{ transitionDelay: open ? `${150 + index * 90}ms` : "0ms" }}
-          >
-            <a
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block text-2xl font-bold text-ink transition-colors hover:text-accent"
+        {links.map((link, index) => {
+          const isActive = activeId === link.href.slice(1);
+          return (
+            <li
+              key={link.href}
+              className={`w-full transition-all duration-500 ease-out ${
+                open ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
+              }`}
+              style={{ transitionDelay: open ? `${150 + index * 90}ms` : "0ms" }}
             >
-              {link.label}
-            </a>
-          </li>
-        ))}
+              <a
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={`block text-2xl font-bold transition-colors ${
+                  isActive ? "text-accent" : "text-ink hover:text-accent"
+                }`}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

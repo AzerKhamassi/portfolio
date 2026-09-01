@@ -1,45 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef } from "react";
 import { flushSync } from "react-dom";
 import type { Dictionary } from "@/i18n/dictionary";
-
-type Theme = "light" | "dark";
-
-const STORAGE_KEY = "theme";
-const THEME_EVENT = "theme-change";
-
-function subscribeToSystemTheme(callback: () => void) {
-  const mql = window.matchMedia("(prefers-color-scheme: dark)");
-  mql.addEventListener("change", callback);
-  return () => mql.removeEventListener("change", callback);
-}
-
-function getSystemTheme(): Theme {
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
-function useSystemTheme(): Theme {
-  return useSyncExternalStore(subscribeToSystemTheme, getSystemTheme, () => "light");
-}
-
-function subscribeToStoredTheme(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(THEME_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(THEME_EVENT, callback);
-  };
-}
-
-function getStoredTheme(): Theme | null {
-  const value = window.localStorage.getItem(STORAGE_KEY);
-  return value === "light" || value === "dark" ? value : null;
-}
-
-function useStoredTheme(): Theme | null {
-  return useSyncExternalStore(subscribeToStoredTheme, getStoredTheme, () => null);
-}
+import { applyTheme, useStoredTheme, useSystemTheme, type Theme } from "@/lib/theme";
 
 export default function ThemeToggle({ dict }: Readonly<{ dict: Dictionary }>) {
   const systemTheme = useSystemTheme();
@@ -56,14 +20,8 @@ export default function ThemeToggle({ dict }: Readonly<{ dict: Dictionary }>) {
   const toggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next: Theme = theme === "dark" ? "light" : "dark";
 
-    const applyTheme = () => {
-      document.documentElement.dataset.theme = next;
-      window.localStorage.setItem(STORAGE_KEY, next);
-      window.dispatchEvent(new Event(THEME_EVENT));
-    };
-
     if (!document.startViewTransition || transitioning.current) {
-      applyTheme();
+      applyTheme(next);
       return;
     }
 
@@ -81,7 +39,7 @@ export default function ThemeToggle({ dict }: Readonly<{ dict: Dictionary }>) {
 
     transitioning.current = true;
     try {
-      const transition = document.startViewTransition(() => flushSync(applyTheme));
+      const transition = document.startViewTransition(() => flushSync(() => applyTheme(next)));
       transition.finished
         .catch(() => {})
         .finally(() => {
@@ -89,7 +47,7 @@ export default function ThemeToggle({ dict }: Readonly<{ dict: Dictionary }>) {
         });
     } catch {
       transitioning.current = false;
-      applyTheme();
+      applyTheme(next);
     }
   };
 

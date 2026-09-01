@@ -1,4 +1,5 @@
 import type { Dictionary } from "@/i18n/dictionary";
+import Terminal from "@/components/Terminal";
 
 export default function Footer({ dict }: Readonly<{ dict: Dictionary }>) {
   const socials = [
@@ -9,21 +10,24 @@ export default function Footer({ dict }: Readonly<{ dict: Dictionary }>) {
 
   return (
     <footer className="mt-auto border-t-2 border-line">
-      <div className="mx-auto flex max-w-3xl flex-col gap-2 px-6 py-8 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Azer Khamassi</p>
-        <div className="flex gap-4">
-          {socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target={social.href.startsWith("http") ? "_blank" : undefined}
-              rel={social.href.startsWith("http") ? "noreferrer" : undefined}
-              className="transition-colors hover:text-accent"
-            >
-              {social.label}
-            </a>
-          ))}
+      <div className="mx-auto max-w-3xl px-6 py-8">
+        <div className="flex flex-col gap-2 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Azer Khamassi</p>
+          <div className="flex gap-4">
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target={social.href.startsWith("http") ? "_blank" : undefined}
+                rel={social.href.startsWith("http") ? "noreferrer" : undefined}
+                className="transition-colors hover:text-accent"
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
         </div>
+        <Terminal dict={dict} />
       </div>
     </footer>
   );
