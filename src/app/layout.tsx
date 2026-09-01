@@ -39,13 +39,15 @@ export default function RootLayout({
       className={`${jetbrainsMono.variable} h-full`}
       suppressHydrationWarning
     >
-      <head>
-        {/* Must run synchronously, before first paint, to avoid a flash of
-            the wrong theme. Lives here (outside [locale]) so it's never
-            part of the tree React tears down on a language switch. */}
+      <body className="min-h-full flex flex-col crt-flicker">
+        {/* Must run synchronously, before anything else paints, to avoid a
+            flash of the wrong theme. We never render our own <head> element
+            (Next.js and the host's edge both inject content into it that
+            React doesn't know about, which breaks hydration) — being the
+            first thing in <body> still runs early enough. */}
         <script>{themeInitScript}</script>
-      </head>
-      <body className="min-h-full flex flex-col crt-flicker">{children}</body>
+        {children}
+      </body>
     </html>
   );
 }
