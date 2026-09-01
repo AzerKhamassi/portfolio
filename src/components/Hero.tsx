@@ -4,10 +4,19 @@ import type { Dictionary } from "@/i18n/dictionary";
 import { useTerminal } from "@/components/terminal-context";
 
 export default function Hero({ dict }: Readonly<{ dict: Dictionary }>) {
-  const { setOpen } = useTerminal();
+  const { open, setOpen } = useTerminal();
 
   const openTerminal = () => {
-    setOpen(true);
+    if (open) {
+      // Already open: the panel is already expanded, so scroll (and focus)
+      // immediately instead of setOpen(true), which is a no-op here and
+      // wouldn't re-trigger Terminal.tsx's open-effect (same value, no
+      // state change) — that effect is what normally handles both.
+      document.getElementById("terminal")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("terminal-input")?.focus({ preventScroll: true });
+    } else {
+      setOpen(true);
+    }
   };
 
   return (
