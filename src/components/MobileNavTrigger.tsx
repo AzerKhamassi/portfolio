@@ -11,7 +11,7 @@ export default function MobileNavTrigger() {
       onClick={() => setOpen(!open)}
       aria-label="Toggle navigation menu"
       aria-expanded={open}
-      className="border-2 border-line px-2 py-1 text-xs font-bold leading-none transition-transform hover:-translate-y-0.5 hover:translate-x-0.5 sm:hidden"
+      className="inline-flex h-7 w-7 items-center justify-center border-2 border-line text-xs font-bold leading-none transition-transform hover:-translate-y-0.5 hover:translate-x-0.5 sm:hidden"
     >
       {open ? "✕" : "☰"}
     </button>

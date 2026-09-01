@@ -1,23 +1,8 @@
-import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import type { Metadata } from "next";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { defaultLocale, isLocale, locales } from "@/i18n/locales";
-import { getThemeCookie } from "@/lib/theme-cookie";
 import { siteUrl } from "@/lib/site";
-import "../globals.css";
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2ead9" },
-    { media: "(prefers-color-scheme: dark)", color: "#100f0c" },
-  ],
-};
+import SetHtmlLang from "@/components/SetHtmlLang";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -67,14 +52,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: LayoutProps<"/[locale]">) {
   const { locale: rawLocale } = await params;
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dict = getDictionary(locale);
-  const theme = await getThemeCookie();
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -97,15 +81,10 @@ export default async function RootLayout({
   };
 
   return (
-    <html
-      lang={locale}
-      data-theme={theme ?? undefined}
-      className={`${jetbrainsMono.variable} h-full`}
-    >
-      <body className="min-h-full flex flex-col crt-flicker">
-        <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
-        {children}
-      </body>
-    </html>
+    <>
+      <SetHtmlLang locale={locale} />
+      <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
+      {children}
+    </>
   );
 }

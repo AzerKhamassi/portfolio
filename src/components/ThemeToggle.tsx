@@ -1,9 +1,13 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
-import type { Theme } from "@/lib/theme-cookie";
 import type { Dictionary } from "@/i18n/dictionary";
+
+type Theme = "light" | "dark";
+
+const STORAGE_KEY = "theme";
+const THEME_EVENT = "theme-change";
 
 function subscribeToSystemTheme(callback: () => void) {
   const mql = window.matchMedia("(prefers-color-scheme: dark)");
@@ -19,22 +23,43 @@ function useSystemTheme(): Theme {
   return useSyncExternalStore(subscribeToSystemTheme, getSystemTheme, () => "light");
 }
 
-export default function ThemeToggle({
-  initialTheme,
-  dict,
-}: Readonly<{ initialTheme: Theme | null; dict: Dictionary }>) {
-  const [explicitTheme, setExplicitTheme] = useState<Theme | null>(initialTheme);
+function subscribeToStoredTheme(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(THEME_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(THEME_EVENT, callback);
+  };
+}
+
+function getStoredTheme(): Theme | null {
+  const value = window.localStorage.getItem(STORAGE_KEY);
+  return value === "light" || value === "dark" ? value : null;
+}
+
+function useStoredTheme(): Theme | null {
+  return useSyncExternalStore(subscribeToStoredTheme, getStoredTheme, () => null);
+}
+
+export default function ThemeToggle({ dict }: Readonly<{ dict: Dictionary }>) {
   const systemTheme = useSystemTheme();
-  const theme = explicitTheme ?? systemTheme;
+  const storedTheme = useStoredTheme();
+  const theme = storedTheme ?? systemTheme;
   const transitioning = useRef(false);
+
+  // Reconcile a stored preference that differs from the system default
+  // (the static page has no way to know it ahead of time).
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   const toggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next: Theme = theme === "dark" ? "light" : "dark";
 
     const applyTheme = () => {
       document.documentElement.dataset.theme = next;
-      document.cookie = `theme=${next}; path=/; max-age=31536000; samesite=lax`;
-      setExplicitTheme(next);
+      window.localStorage.setItem(STORAGE_KEY, next);
+      window.dispatchEvent(new Event(THEME_EVENT));
     };
 
     if (!document.startViewTransition || transitioning.current) {
@@ -76,7 +101,7 @@ export default function ThemeToggle({
       onClick={toggle}
       aria-label={label}
       title={label}
-      className="border-2 border-line px-2 py-1 text-xs font-bold leading-none transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
+      className="inline-flex h-7 w-7 items-center justify-center border-2 border-line text-xs font-bold leading-none transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
       suppressHydrationWarning
     >
       {theme === "dark" ? "☀" : "☾"}
