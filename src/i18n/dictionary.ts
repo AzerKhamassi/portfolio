@@ -8,6 +8,8 @@ export type Dictionary = {
   nav: {
     work: string;
     about: string;
+    experience: string;
+    education: string;
     contact: string;
   };
   hero: {
@@ -34,6 +36,25 @@ export type Dictionary = {
     paragraphs: string[];
     stackLabel: string;
     stack: string[];
+  };
+  experience: {
+    sectionLabel: string;
+    items: {
+      role: string;
+      company: string;
+      period: string;
+      location: string;
+      achievements: string[];
+      tools: string[];
+    }[];
+  };
+  education: {
+    sectionLabel: string;
+    degree: string;
+    school: string;
+    period: string;
+    certificatesLabel: string;
+    certificates: { name: string; issuer: string }[];
   };
   contact: {
     sectionLabel: string;

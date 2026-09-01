@@ -11,6 +11,8 @@ export default function Header({
   const links = [
     { href: '#work', label: dict.nav.work },
     { href: '#about', label: dict.nav.about },
+    { href: '#experience', label: dict.nav.experience },
+    { href: '#education', label: dict.nav.education },
     { href: '#contact', label: dict.nav.contact },
   ]
 
@@ -20,7 +22,7 @@ export default function Header({
         <a href='#top' className='text-sm font-bold tracking-tight'>
           [ A_K ]
         </a>
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-5'>
           <nav className='hidden items-center gap-5 text-sm text-ink-soft sm:flex'>
             {links.map((link) => (
               <a
@@ -32,9 +34,11 @@ export default function Header({
               </a>
             ))}
           </nav>
-          <LanguageSwitcher locale={locale} />
-          <ThemeToggle dict={dict} />
-          <MobileNavTrigger />
+          <div className='flex items-center gap-3'>
+            <LanguageSwitcher locale={locale} />
+            <ThemeToggle dict={dict} />
+            <MobileNavTrigger />
+          </div>
         </div>
       </div>
     </header>

@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import About from "@/components/About";
+import Experience from "@/components/Experience";
+import Education from "@/components/Education";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import MobileNavPanel from "@/components/MobileNavPanel";
@@ -21,6 +23,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const mobileLinks = [
     { href: "#work", label: dict.projects.sectionLabel },
     { href: "#about", label: dict.about.sectionLabel },
+    { href: "#experience", label: dict.experience.sectionLabel },
+    { href: "#education", label: dict.education.sectionLabel },
     { href: "#contact", label: dict.contact.sectionLabel },
   ];
 
@@ -32,6 +36,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         <Hero dict={dict} />
         <Projects dict={dict} />
         <About dict={dict} />
+        <Experience dict={dict} />
+        <Education dict={dict} />
         <Contact dict={dict} locale={locale} />
       </main>
       <Footer dict={dict} />
