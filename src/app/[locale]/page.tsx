@@ -7,8 +7,10 @@ import Education from "@/components/Education";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import MobileNavPanel from "@/components/MobileNavPanel";
+import KeyboardShortcutsOverlay from "@/components/KeyboardShortcutsOverlay";
 import { MobileNavProvider } from "@/components/mobile-nav-context";
 import { TerminalProvider } from "@/components/terminal-context";
+import { ShortcutsProvider } from "@/components/shortcuts-context";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { defaultLocale, isLocale, locales } from "@/i18n/locales";
 
@@ -32,17 +34,20 @@ export default async function Home({ params }: Readonly<PageProps<"/[locale]">>)
   return (
     <MobileNavProvider>
       <TerminalProvider>
-        <Header dict={dict} locale={locale} />
-        <MobileNavPanel links={mobileLinks} />
-        <main>
-          <Hero dict={dict} />
-          <Projects dict={dict} />
-          <About dict={dict} />
-          <Experience dict={dict} />
-          <Education dict={dict} />
-          <Contact dict={dict} locale={locale} />
-        </main>
-        <Footer dict={dict} />
+        <ShortcutsProvider>
+          <Header dict={dict} locale={locale} />
+          <MobileNavPanel links={mobileLinks} />
+          <main>
+            <Hero dict={dict} />
+            <Projects dict={dict} />
+            <About dict={dict} />
+            <Experience dict={dict} />
+            <Education dict={dict} />
+            <Contact dict={dict} locale={locale} />
+          </main>
+          <Footer dict={dict} />
+          <KeyboardShortcutsOverlay dict={dict} />
+        </ShortcutsProvider>
       </TerminalProvider>
     </MobileNavProvider>
   );

@@ -3,10 +3,9 @@
 import { useEffect } from "react";
 import { useMobileNav } from "@/components/mobile-nav-context";
 import { useActiveSection } from "@/lib/use-active-section";
+import { SECTION_IDS } from "@/lib/sections";
 
 type NavLink = { href: string; label: string };
-
-const SECTION_IDS = ["work", "about", "experience", "education", "contact"];
 
 export default function MobileNavPanel({
   links,

@@ -46,6 +46,7 @@ export default function Hero({ dict }: Readonly<{ dict: Dictionary }>) {
           type="button"
           onClick={openTerminal}
           aria-label={dict.hero.ctaTerminal}
+          title={dict.hero.ctaTerminal}
           className="retro-shadow-sm border-2 border-line px-4 py-2 font-bold transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
         >
           {">"}

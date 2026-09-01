@@ -187,6 +187,14 @@ const en: Dictionary = {
     messageLabel: "Message",
     footerNote: "Sent from your portfolio contact form.",
   },
+  shortcuts: {
+    title: "shortcuts",
+    help: "toggle this help",
+    terminal: "toggle the terminal",
+    theme: "toggle light / dark",
+    top: "scroll to top",
+    close: "close",
+  },
   terminal: {
     prompt: "guest@azer",
     intro: "Type 'help' to see available commands.",

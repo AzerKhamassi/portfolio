@@ -187,6 +187,14 @@ const fr: Dictionary = {
     messageLabel: "Message",
     footerNote: "Envoyé depuis le formulaire de contact de votre portfolio.",
   },
+  shortcuts: {
+    title: "raccourcis",
+    help: "afficher / masquer cette aide",
+    terminal: "afficher / masquer le terminal",
+    theme: "basculer clair / sombre",
+    top: "remonter en haut",
+    close: "fermer",
+  },
   terminal: {
     prompt: "invite@azer",
     intro: "Tapez 'help' pour voir les commandes disponibles.",

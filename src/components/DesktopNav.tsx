@@ -1,11 +1,10 @@
 'use client'
 
 import { useActiveSection } from '@/lib/use-active-section'
+import { SECTION_IDS } from '@/lib/sections'
 import type { Dictionary } from '@/i18n/dictionary'
 
 type NavLink = { href: string; label: string }
-
-const SECTION_IDS = ['work', 'about', 'experience', 'education', 'contact']
 
 export default function DesktopNav({ dict }: Readonly<{ dict: Dictionary }>) {
   const links: NavLink[] = [

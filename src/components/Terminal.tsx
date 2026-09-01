@@ -132,6 +132,7 @@ export default function Terminal({ dict }: Readonly<{ dict: Dictionary }>) {
           type="button"
           onClick={() => document.getElementById("top")?.scrollIntoView({ behavior: "smooth" })}
           aria-label={dict.footer.backToTop}
+          title={dict.footer.backToTop}
           className="text-xs text-ink-soft transition-colors hover:text-accent"
         >
           ↑

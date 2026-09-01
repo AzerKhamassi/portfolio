@@ -96,6 +96,14 @@ export type Dictionary = {
     messageLabel: string;
     footerNote: string;
   };
+  shortcuts: {
+    title: string;
+    help: string;
+    terminal: string;
+    theme: string;
+    top: string;
+    close: string;
+  };
   terminal: {
     prompt: string;
     intro: string;
