@@ -18,14 +18,19 @@ export const viewport: Viewport = {
 const themeInitScript = `
 (function () {
   try {
-    var stored = localStorage.getItem("theme");
-    var theme =
+    const stored = localStorage.getItem("theme");
+    const theme =
       stored === "light" || stored === "dark"
         ? stored
         : window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
     document.documentElement.dataset.theme = theme;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.documentElement.classList.add("theme-transitions");
+      });
+    });
   } catch (e) {}
 })();
 `;

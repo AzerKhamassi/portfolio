@@ -53,6 +53,12 @@
   --line: #2b2620;
   --card: #e9dfc7;
   --success: #3f6b35;
+}
+
+/* Only animate theme color changes once the page has already painted with
+   the correct theme (this class is added by JS after first paint) —
+   otherwise the init script's own correction gets visibly animated too. */
+:root.theme-transitions {
   transition:
     --paper 0.35s ease,
     --ink 0.35s ease,
