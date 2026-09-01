@@ -45,11 +45,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col crt-flicker">
-        {/* Must run synchronously, before anything else paints, to avoid a
-            flash of the wrong theme. We never render our own <head> element
-            (Next.js and the host's edge both inject content into it that
-            React doesn't know about, which breaks hydration) — being the
-            first thing in <body> still runs early enough. */}
         <script>{themeInitScript}</script>
         {children}
       </body>
