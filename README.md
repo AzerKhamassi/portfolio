@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Azer Khamassi — Portfolio
 
-## Getting Started
+Personal portfolio site for Azer Khamassi, Full Stack Engineer. Retro, terminal-inspired design (monospace type, hard-offset shadows, sharp corners, light/dark themes), fully bilingual (English/French), and built on the Next.js App Router.
 
-First, run the development server:
+Live at [azerxkhamassi.netlify.app](https://azerxkhamassi.netlify.app).
+
+## Features
+
+- **Bilingual (EN/FR)** via a `/en` / `/fr` route segment, with a hand-rolled dictionary-based i18n system (no external i18n library) — both locales are fully statically generated at build time.
+- **Light/dark theme**, persisted in `localStorage`, with an animated View Transitions–powered toggle and zero flash-of-incorrect-theme on load.
+- **Sections**: Hero, Projects, About, Experience, Education & Certificates, Contact.
+- **Contact form** backed by [Resend](https://resend.com) and [react-email](https://react.email), with server-side validation via Zod.
+- **Interactive terminal** in the footer — type `help` for a list of commands (jump to sections, toggle theme, open social links, and a few easter eggs).
+- **Keyboard shortcuts overlay** — press `?` (or click the bottom-right badge) to see available shortcuts.
+- **SEO**: per-locale metadata, JSON-LD, sitemap, robots.txt, and web manifest.
+- Custom 404 page and active-section highlighting in the nav as you scroll.
+
+## Tech stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- [React 19](https://react.dev) + TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [Resend](https://resend.com) + [react-email](https://react.email) for the contact form
+- [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) for form validation
+- Deployed on [Netlify](https://netlify.com)
+
+## Getting started
+
+Install dependencies and copy the example environment file:
+
+```bash
+npm install
+cp .env.example .env.local
+```
+
+Fill in `.env.local` with a [Resend](https://resend.com) API key and the contact email addresses (see `.env.example` for the expected shape). Note that Next.js only reads `.env.local`, not `.env.example`.
+
+Then run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to `/en` or `/fr` based on your browser's language.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — start the development server (Turbopack)
+- `npm run build` — production build
+- `npm run start` — serve the production build
+- `npm run lint` — run ESLint
+- `npm run email:dev` — preview email templates (`src/emails`) in the react-email dev server
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/
+    [locale]/        # localized routes (/en, /fr) — page, layout, metadata, 404
+    api/contact/      # contact form submission endpoint
+  components/         # UI components (mostly client islands alongside server components)
+  emails/              # react-email templates
+  i18n/                # locale list, dictionary type, en/fr dictionaries, getDictionary()
+  lib/                 # shared client-side logic (theme, active-section tracking, etc.)
+  proxy.ts             # locale-detection redirect (Next 16's middleware)
+```
